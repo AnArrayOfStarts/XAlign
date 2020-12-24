@@ -9,13 +9,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 位置
+
 typedef enum XAlignPosition{
     XAlignPositionFisrt = -1,
     XAlignPositionLast,
 } XAlignPosition;
 
-/// 填充
+
 typedef enum XAlignPaddingMode {
     XAlignPaddingModeNone = 0,
     XAlignPaddingModeMin,

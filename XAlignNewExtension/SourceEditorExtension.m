@@ -14,9 +14,8 @@
 - (void)extensionDidFinishLaunching
 {
     // If your extension needs to do any work at launch, implement this optional method.
-    /// 前期配置
     [PatternManager launch];
-    NSLog(@"先");
+    
 }
 
 

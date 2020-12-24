@@ -42,7 +42,7 @@
     if ( __items == nil ){
         NSString * patternsBundlePath = [[NSBundle mainBundle] pathForResource:@"Patterns" ofType:@"bundle"];
         NSString * filePath = [[NSBundle bundleWithPath:patternsBundlePath] pathForResource:@"default" ofType:@"plist"];
-        // 获得了数组--用于排列
+        
         __items = [NSArray arrayWithContentsOfFile:filePath];
     }
     
@@ -57,7 +57,8 @@
 
 
 @implementation PatternManager
-+ (instancetype)sharedInstance{
++ (instancetype)sharedInstance
+{
     static PatternManager * i = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -66,68 +67,74 @@
     return i;
 }
 
-- (id)init{
+- (id)init
+{
     self = [super init];
-    if (self) {
+    if (self)
+    {
         self.cache = [NSMutableDictionary new];
         self.specifiers = [NSMutableDictionary new];
     }
     return self;
 }
 #pragma mark - setup
-/// 前期配置
-/// 获取了plist里面的数据
-+ (void)launch{
+
++ (void)launch
+{
     
     [self setupWithRawArray:[PatternNew patterns]];
 }
 
-+ (void)setupWithRawArray:(NSArray *)array{
++ (void)setupWithRawArray:(NSArray *)array
+{
     
     [self setupSpecifiersWithRawArray:array];
 }
 
-/// 配置分隔符 到 specifiers
-/// @param array plist里面的数据
-+ (NSArray *)setupSpecifiersWithRawArray:(NSArray *)array{
+
++ (NSArray *)setupSpecifiersWithRawArray:(NSArray *)array
+{
     if ( !array )
         return nil;
     
-    // arr 有4个数据但是 最后一个数据没有specifier字段
-    for (NSDictionary * item in array ){
-        /// "="      "#define"        "@property"       三种类型
+    
+    for (NSDictionary * item in array )
+    {
+        
         NSString * spec = item[@"specifier"];
         
-        if ( spec ){
-            NSLog(@"spec:%@",spec);
+        if ( spec )
+        {
+            
             [PatternManager sharedInstance].specifiers[spec] = item;
-            NSLog(@"specifiers数据：%@",[PatternManager sharedInstance].specifiers);
+            
         }
     }
-    /// 别紧张，这里应该是没有打印全的关系，看allkeys 是有3个key的！
-    NSLog(@"specifiers数据：%@",[NSString stringWithFormat:@"%@",[PatternManager sharedInstance].specifiers]);
-    NSLog(@"所有的key:%@",[[PatternManager sharedInstance].specifiers allKeys]);
+    
     return nil;
 }
 
 
 
-+ (NSArray *)patternGroupMatchWithString:(NSString *)string{
++ (NSArray *)patternGroupMatchWithString:(NSString *)string
+{
     NSDictionary * dict = [self rawPatternWithString:string];
     return [self patternGroupWithDictinary:dict];
 }
 
 
-/// 从字符串中遍历出第一个出现的关键字
-/// @param string 字符串
-+ (NSDictionary *)rawPatternWithString:(NSString *)string{
-    /// 这里specifiers是从 launch 中初始化过来的！
+
+
++ (NSDictionary *)rawPatternWithString:(NSString *)string
+{
+    
     NSDictionary * specifiers = [PatternManager sharedInstance].specifiers;
     
-    /// 从3个关键字中遍历出第一个在字符串中出现的关键字
-    for ( NSString * spec in specifiers.allKeys ){
-        // 不清楚为什么不写nslog，它就不走里面，可能是调试的原因吧
-        NSLog(@"key值:%@",spec);
+    
+    for ( NSString * spec in specifiers.allKeys )
+    {
+        
+        
         if ( NSNotFound != [string rangeOfString:spec].location )
         {
             return specifiers[spec];
@@ -137,20 +144,21 @@
     return nil;
 }
 
-+ (NSArray *)patternGroupWithDictinary:(NSDictionary *)dictionary{
++ (NSArray *)patternGroupWithDictinary:(NSDictionary *)dictionary
+{
     NSNumber * key = dictionary[kPatternID];
     
-    /// 再次判断拦截，是否可以进行排列
     if ( !key )
         return nil;
     
-    /// 为啥不直接初始化？？为了判断cache 是否为空？
     NSMutableArray * patternGroup = [PatternManager sharedInstance].cache[key];
     
-    if ( nil == patternGroup ){
+    if ( nil == patternGroup )
+    {
         patternGroup = [NSMutableArray array];
         
-        for ( NSDictionary * pattern in dictionary[kPatterns] ){
+        for ( NSDictionary * pattern in dictionary[kPatterns] )
+        {
             NSString * string           = pattern[kPatternString];
 
             BOOL isOptional             = [pattern[kPatternIsOptional] intValue];
@@ -180,8 +188,7 @@
             p.position  = position;
             p.isOptional = isOptional;
             p.control   = ^ NSString * ( NSUInteger padding, NSString * match ){
-                /// 不要着急，这里只是赋值，回调在后面会过来调的
-                NSLog(@"%hhd,%hhd,%hhd",needFormat,needPadding,needFormatWhenFound);
+                
                 if ( needFormat || needPadding || needFormatWhenFound ){
                     NSString * result = match;
 
@@ -220,7 +227,7 @@
 
                 return controlString;
             };
-//
+            
             [patternGroup addObject:p];
         }
         
