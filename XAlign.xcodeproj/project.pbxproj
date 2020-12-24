@@ -21,7 +21,7 @@
 		31E65ED22592E9D800BC156B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E65ED12592E9D800BC156B /* Cocoa.framework */; };
 		31E65ED82592E9D800BC156B /* SourceEditorExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E65ED72592E9D800BC156B /* SourceEditorExtension.m */; };
 		31E65EDB2592E9D800BC156B /* SourceEditorCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E65EDA2592E9D800BC156B /* SourceEditorCommand.m */; };
-		31E65EE02592E9D800BC156B /* XAlignNewExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E65ECF2592E9D800BC156B /* XAlignNewExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		31E65EE02592E9D800BC156B /* XAlignExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E65ECF2592E9D800BC156B /* XAlignExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +41,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				31E65EE02592E9D800BC156B /* XAlignNewExtension.appex in Embed App Extensions */,
+				31E65EE02592E9D800BC156B /* XAlignExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,7 +67,7 @@
 		3191B0C925932183009AF511 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3191B0FC259366E9009AF511 /* PatternManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PatternManager.h; sourceTree = "<group>"; };
 		3191B0FD259366E9009AF511 /* PatternManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PatternManager.m; sourceTree = "<group>"; };
-		31E65EB32592E9BF00BC156B /* XAlignNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XAlignNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E65EB32592E9BF00BC156B /* XAlign.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XAlign.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E65EB62592E9BF00BC156B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		31E65EB72592E9BF00BC156B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		31E65EB92592E9BF00BC156B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 		31E65EC12592E9C200BC156B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E65EC22592E9C200BC156B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		31E65EC42592E9C200BC156B /* XAlignNew.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XAlignNew.entitlements; sourceTree = "<group>"; };
-		31E65ECF2592E9D800BC156B /* XAlignNewExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = XAlignNewExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E65ECF2592E9D800BC156B /* XAlignExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = XAlignExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E65ED12592E9D800BC156B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		31E65ED62592E9D800BC156B /* SourceEditorExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceEditorExtension.h; sourceTree = "<group>"; };
 		31E65ED72592E9D800BC156B /* SourceEditorExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceEditorExtension.m; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3191B0FB259366AB009AF511 /* XAlignNew */ = {
+		3191B0FB259366AB009AF511 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				3104D6312593823B00BAE3DA /* NSString+XAlign.h */,
@@ -117,7 +117,7 @@
 				3191B0FC259366E9009AF511 /* PatternManager.h */,
 				3191B0FD259366E9009AF511 /* PatternManager.m */,
 			);
-			path = XAlignNew;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		31E65EAA2592E9BF00BC156B = {
@@ -133,8 +133,8 @@
 		31E65EB42592E9BF00BC156B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				31E65EB32592E9BF00BC156B /* XAlignNew.app */,
-				31E65ECF2592E9D800BC156B /* XAlignNewExtension.appex */,
+				31E65EB32592E9BF00BC156B /* XAlign.app */,
+				31E65ECF2592E9D800BC156B /* XAlignExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,7 +168,7 @@
 		31E65ED52592E9D800BC156B /* XAlignNewExtension */ = {
 			isa = PBXGroup;
 			children = (
-				3191B0FB259366AB009AF511 /* XAlignNew */,
+				3191B0FB259366AB009AF511 /* Source */,
 				31E65ED62592E9D800BC156B /* SourceEditorExtension.h */,
 				31E65ED72592E9D800BC156B /* SourceEditorExtension.m */,
 				31E65ED92592E9D800BC156B /* SourceEditorCommand.h */,
@@ -182,9 +182,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		31E65EB22592E9BF00BC156B /* XAlignNew */ = {
+		31E65EB22592E9BF00BC156B /* XAlign */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31E65EC72592E9C200BC156B /* Build configuration list for PBXNativeTarget "XAlignNew" */;
+			buildConfigurationList = 31E65EC72592E9C200BC156B /* Build configuration list for PBXNativeTarget "XAlign" */;
 			buildPhases = (
 				31E65EAF2592E9BF00BC156B /* Sources */,
 				31E65EB02592E9BF00BC156B /* Frameworks */,
@@ -196,14 +196,14 @@
 			dependencies = (
 				31E65EDF2592E9D800BC156B /* PBXTargetDependency */,
 			);
-			name = XAlignNew;
+			name = XAlign;
 			productName = XAlignNew;
-			productReference = 31E65EB32592E9BF00BC156B /* XAlignNew.app */;
+			productReference = 31E65EB32592E9BF00BC156B /* XAlign.app */;
 			productType = "com.apple.product-type.application";
 		};
-		31E65ECE2592E9D800BC156B /* XAlignNewExtension */ = {
+		31E65ECE2592E9D800BC156B /* XAlignExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31E65EE12592E9D800BC156B /* Build configuration list for PBXNativeTarget "XAlignNewExtension" */;
+			buildConfigurationList = 31E65EE12592E9D800BC156B /* Build configuration list for PBXNativeTarget "XAlignExtension" */;
 			buildPhases = (
 				31E65ECB2592E9D800BC156B /* Sources */,
 				31E65ECC2592E9D800BC156B /* Frameworks */,
@@ -214,9 +214,9 @@
 			);
 			dependencies = (
 			);
-			name = XAlignNewExtension;
+			name = XAlignExtension;
 			productName = XAlignNewExtension;
-			productReference = 31E65ECF2592E9D800BC156B /* XAlignNewExtension.appex */;
+			productReference = 31E65ECF2592E9D800BC156B /* XAlignExtension.appex */;
 			productType = "com.apple.product-type.xcode-extension";
 		};
 /* End PBXNativeTarget section */
@@ -235,7 +235,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 31E65EAE2592E9BF00BC156B /* Build configuration list for PBXProject "XAlignNew" */;
+			buildConfigurationList = 31E65EAE2592E9BF00BC156B /* Build configuration list for PBXProject "XAlign" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -248,8 +248,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				31E65EB22592E9BF00BC156B /* XAlignNew */,
-				31E65ECE2592E9D800BC156B /* XAlignNewExtension */,
+				31E65EB22592E9BF00BC156B /* XAlign */,
+				31E65ECE2592E9D800BC156B /* XAlignExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -301,7 +301,7 @@
 /* Begin PBXTargetDependency section */
 		31E65EDF2592E9D800BC156B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 31E65ECE2592E9D800BC156B /* XAlignNewExtension */;
+			target = 31E65ECE2592E9D800BC156B /* XAlignExtension */;
 			targetProxy = 31E65EDE2592E9D800BC156B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -444,7 +444,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = come.lxl.XAlignNew;
+				PRODUCT_BUNDLE_IDENTIFIER = qfi.sh.osx.xalign;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -464,7 +464,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = come.lxl.XAlignNew;
+				PRODUCT_BUNDLE_IDENTIFIER = qfi.sh.osx.xalign;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -483,7 +483,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = come.lxl.XAlignNew.XAlignNewExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = qfi.sh.osx.xalign.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -503,7 +503,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = come.lxl.XAlignNew.XAlignNewExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = qfi.sh.osx.xalign.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -512,7 +512,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		31E65EAE2592E9BF00BC156B /* Build configuration list for PBXProject "XAlignNew" */ = {
+		31E65EAE2592E9BF00BC156B /* Build configuration list for PBXProject "XAlign" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31E65EC52592E9C200BC156B /* Debug */,
@@ -521,7 +521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31E65EC72592E9C200BC156B /* Build configuration list for PBXNativeTarget "XAlignNew" */ = {
+		31E65EC72592E9C200BC156B /* Build configuration list for PBXNativeTarget "XAlign" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31E65EC82592E9C200BC156B /* Debug */,
@@ -530,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31E65EE12592E9D800BC156B /* Build configuration list for PBXNativeTarget "XAlignNewExtension" */ = {
+		31E65EE12592E9D800BC156B /* Build configuration list for PBXNativeTarget "XAlignExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31E65EE22592E9D800BC156B /* Debug */,

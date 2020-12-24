@@ -34,7 +34,7 @@
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>$(PRODUCT_BUNDLE_IDENTIFIER).SourceEditorCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>xalign new extension</string>
+					<string>xalign extension</string>
 				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
