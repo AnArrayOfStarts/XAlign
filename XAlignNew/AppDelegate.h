@@ -1,9 +1,8 @@
 //
 //  AppDelegate.h
-//  XAlign
+//  XAlignNew
 //
-//  Created by QFish on 03/11/2016.
-//  Copyright © 2016 QFish. All rights reserved.
+//  Created by 李晓龙 on 2020/12/23.
 //
 
 #import <Cocoa/Cocoa.h>

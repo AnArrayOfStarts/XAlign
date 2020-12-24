@@ -7,13 +7,13 @@
 //
 
 #ifdef __XALIGN__
-#import "SharedXcode.h"
+//#import "SharedXcode.h"
 #define kTabSize [SharedXcode tabWidth]
 #else
 #define kTabSize 4
 #endif
 
-#import "XAlignPattern.h"
+#import "PatternManager.h"
 
 @interface NSString (XAlign)
 - (NSString *)xtrim;

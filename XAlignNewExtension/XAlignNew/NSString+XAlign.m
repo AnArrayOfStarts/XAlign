@@ -53,6 +53,10 @@
 	return sum;
 }
 
+
+/// 最终效果，再把arr里面的内容拼接成字符串返回
+/// @param paddings <#paddings description#>
+/// @param patterns <#patterns description#>
 - (NSString *)stringWithPaddings:(NSArray *)paddings patterns:(NSArray *)patterns
 {
 	NSMutableString * string = [NSMutableString string];
@@ -73,7 +77,7 @@
 			
 			NSUInteger pIndex = i == 0 ? 0 : ( ( i + 1 ) / 2 - 1 );
 			
-			XAlignPattern * pattern = patterns[pIndex];
+            PatternNew * pattern = patterns[pIndex];
 			
 			// build string
 			
@@ -92,6 +96,7 @@
 						if ( XAlignPaddingModeNone == pattern.tailMode )
 							tempString = partial;
 						else
+                            /// 给头部后面加了一个空格
 							tempString = [partial stringByPaddingToLength:padding withString:@" " startingAtIndex:0];
 						break;
 					case 1: // match
@@ -121,20 +126,26 @@
 
 @implementation NSString (XAlign)
 
-- (NSString *)xtrim
-{
+
+/// 去掉两端空格
+- (NSString *)xtrim{
 	return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 - (NSString *)xtrimTail
 {
 	NSError * error = nil;
+    /// 正则表达式  https://github.com/pro648/tips/wiki/iOS%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95%E5%85%A8%E9%9B%86
+    /// \下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用    \s  空格   + 多个匹配   $ 结束位置
+    /// 查看结果感觉是  把一个字符串首尾的空白符换为空  匹配字符以大小写分割？
+    /// \\s+可以替换掉关键字之间的所有空白字符 --java   https://blog.csdn.net/xuxu120/article/details/72627508
 	NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:@"\\s+$" options:NSRegularExpressionCaseInsensitive error:&error];
 	
 	if ( error )
 		return self;
 	
-	NSArray * matches = [regex matchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length)];
+    /// 仍然是一个正则操作
+    NSArray * matches = [regex matchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length)];
 	
 	if ( 0 == matches.count )
 		return self;
@@ -165,13 +176,13 @@
     return count;
 }
 
-- (NSString *)stringByAligningWithPatterns:(NSArray *)patterns
-{
+- (NSString *)stringByAligningWithPatterns:(NSArray *)patterns{
+    /// 哦~~~~self 对应 selectedString。。。。
 	return [self stringByAligningWithPatterns:patterns partialCount:(patterns.count * 2 + 1)];
 }
 
-- (NSString *)stringByAligningWithPatterns:(NSArray *)patterns partialCount:(NSUInteger)partialCount
-{
+- (NSString *)stringByAligningWithPatterns:(NSArray *)patterns partialCount:(NSUInteger)partialCount{
+    /// 把self 按照\n 分割成数组
 	NSArray * lines = [self componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
     if ( lines.count <= 1 )
@@ -187,12 +198,14 @@
 	
 	for ( NSString * line in lines )
     {
+        // 通过类别返回一个字符串
 		NSString * trimLine = line.xtrimTail;
 		
 		XAlignLine * xline = nil;
-
+        /// 看的头疼，内部是个递归。。。就是把一条字符串，分割成数组，放到xline 指向的里面。。。
 		[trimLine processLine:&xline level:(int)(patterns.count - 1) patterns:patterns paddings:paddings];
 		
+        /// 判断是加一个字符串对象 还是加一个数组对象
 		if ( !xline )
 		{
 			[processLines addObject:trimLine];
@@ -227,14 +240,16 @@
 	return newLines;
 }
 
+/// 内部是递归，按照一定规则分割字符串，最终把数据作为数组放入line
 - (void)processLine:(XAlignLine **)line level:(int)level patterns:(NSArray *)patterns paddings:(NSMutableArray *)paddings
 {
 	if ( level < 0 )
 		return;
-	
-	XAlignPattern * pattern = patterns[level];
+	/// 这里直接是赋值到pattern的string里了
+    PatternNew * pattern = patterns[level];
 	
 	NSString * match = nil;
+    /// 以=为中心，找到了前半段、后半段，变为两个字符串返回到这个数组。注意，这里是下面方法递归 得到的。
 	NSArray * components = [self componentsSeparatedByRegexPattern:pattern.string position:pattern.position match:&match];
 
 	if ( !match )
@@ -258,10 +273,11 @@
 	
 	NSString * head = [components firstObject];
 	NSString * tail = [components  lastObject];
-	
+	/// 递归遍历
 	[head processLine:line level:(level-1) patterns:patterns paddings:paddings];
 	
 ____STEP_IIN( head )
+    // 头部
 	if ( 0 == level && head )
 	{
 		// add head partial
@@ -292,6 +308,7 @@ ____STEP_IIN( head )
 ____STEP_OUT( head )
 	
 ____STEP_IIN( match )
+    // 中间匹配
 	// add match partial
 	[xline.partials addObject:match];
 	// get index for match padding
@@ -353,14 +370,18 @@ ____STEP_OUT( tail )
 - (NSArray *)componentsSeparatedByRegexPattern:(NSString *)pattern position:(XAlignPosition)position match:(NSString **)match
 {
 	NSError * error = nil;
+    /// 根据正则表达式匹配  其实就是取出 匹配的字符串
 	NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:&error];
 	
 	if ( error )
 	{
+        /// 打印错误当前方法
 		NSLog( @"[NSString+XAlign](%s): pattern is illegal. error: %@", __PRETTY_FUNCTION__, error );
 		return nil;
 	}
-
+    
+    /// https://blog.csdn.net/reylen/article/details/50723122
+    /// 这个方法会返回一个结果数组，将所有匹配的结果返回
 	NSArray * matches = [regex matchesInString:self options:NSMatchingReportProgress range:NSMakeRange(0, self.length)];
 	
 	if ( 0 == matches.count )
@@ -396,10 +417,10 @@ ____STEP_OUT( tail )
 	*match = [self substringWithRange:[matchResult range]];
 	
 	NSRange headRange = NSMakeRange( 0, [matchResult range].location );
-	NSRange tailRange = NSMakeRange( NSMaxRange([matchResult range]), self.length - NSMaxRange([matchResult range]) );
+	NSRange tailRange = NSMakeRange( NSMaxRange([matchResult range]), self.length - NSMaxRange([matchResult range]) );// 这个是从= 后面空格后的字符串开始
 
-	NSString * head = [self substringWithRange:headRange] ?: @"";
-	NSString * tail = [self substringWithRange:tailRange] ?: @"";
+	NSString * head = [self substringWithRange:headRange] ?: @"";// = 前半段
+	NSString * tail = [self substringWithRange:tailRange] ?: @"";// = 后半段
 	
 	return @[ head, tail ];
 }

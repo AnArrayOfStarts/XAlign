@@ -1,32 +1,35 @@
 //
-//  XAlignPattern.h
-//  main
+//  patternManager.h
+//  XAlignNewExtension
 //
-//  Created by QFish on 11/30/13.
-//  Copyright (c) 2013 net.qfish. All rights reserved.
+//  Created by 李晓龙 on 2020/12/23.
 //
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+/// 位置
 typedef enum XAlignPosition{
     XAlignPositionFisrt = -1,
-	XAlignPositionLast,
+    XAlignPositionLast,
 } XAlignPosition;
 
+/// 填充
 typedef enum XAlignPaddingMode {
-	XAlignPaddingModeNone = 0,
-	XAlignPaddingModeMin,
-	XAlignPaddingModeMax,
+    XAlignPaddingModeNone = 0,
+    XAlignPaddingModeMin,
+    XAlignPaddingModeMax,
 } XAlignPaddingMode;
 
-typedef NSString * (^XAlignPatternControlBlockU)(NSUInteger padding);
-typedef NSString * (^XAlignPatternControlBlockUS)(NSUInteger padding, NSString * match);
+typedef NSString *_Nonnull(^XAlignPatternControlBlockU)(NSUInteger padding);
+typedef NSString *_Nonnull (^XAlignPatternControlBlockUS)(NSUInteger padding, NSString * match);
 
 @interface XAlignPadding : NSObject
 + (NSString *)stringWithFormat:(NSString *)format;
 @end
 
-@interface XAlignPattern : NSObject
+@interface PatternNew : NSObject
 @property (nonatomic, assign) BOOL isOptional;
 @property (nonatomic, retain) NSString * string;
 @property (nonatomic, assign) XAlignPosition position;
@@ -37,7 +40,9 @@ typedef NSString * (^XAlignPatternControlBlockUS)(NSUInteger padding, NSString *
 + (NSArray *)patterns;
 @end
 
-@interface XAlignPatternManager : NSObject
+
+
+@interface PatternManager : NSObject
 
 + (instancetype)sharedInstance;
 
@@ -47,9 +52,9 @@ typedef NSString * (^XAlignPatternControlBlockUS)(NSUInteger padding, NSString *
 
 + (void)setupWithRawArray:(NSArray *)array;
 
-+ (NSArray *)patternGroupsWithContentsOfFile:(NSString *)name;
-+ (NSArray *)patternGroupsWithRawArray:(NSArray *)array;
 + (NSArray *)patternGroupMatchWithString:(NSString *)string;
 + (NSArray *)patternGroupWithDictinary:(NSDictionary *)dictionary;
 
 @end
+
+NS_ASSUME_NONNULL_END
